@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', validateUserId, (req, res) => {
-  users.getById()
+  users.getById(req.params.id)
   .then(users => {
     res.status(200).json(users)
   })
@@ -84,9 +84,9 @@ function validateUserId(req, res, next) {
   .then(user => {
 		if (!user) {
 			res.status(400).json({ message: 'No user found' });
-		} else {
+		} 
 			next();
-		}
+		
 	});
 }
 

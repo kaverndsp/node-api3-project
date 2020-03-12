@@ -9,7 +9,7 @@ server.use('/api/users', userRouter);
 server.use('/api/posts', postsRouter);
 
 server.get('/', (req, res) => {
-  res.send(`<h2>Let's write some middleware!</h2>`);
+  res.status(200).json("Welcome to the Node Api Project #3");
 });
 
 //custom middleware
