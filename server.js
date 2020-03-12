@@ -21,13 +21,6 @@ function logger(req, res, next) {
 	next();
 }
 
-function validateUserId(req, res, next){
-  const id = req.params.id;
-  if(!id){
-    res.status(400).json({message: "There is no Id!"})
-  }else{
-    next();
-  }
-}
+
 
 module.exports = server;
