@@ -11,12 +11,12 @@ router.post('/', validateUser, (req, res) => {
   })
   .catch(err => {
     res.status(500).json({
-      message: "lmao"
+      message: "error"
     })
   })
 });
 
-router.post('/:id/posts', (req, res) => {
+router.post('/:id/posts', validateUserId, validatePost, (req, res) => {
   posts.insert(req.body)
   .then(Post => {
     res.status(201).json(Post)
@@ -46,7 +46,7 @@ router.get('/:id', validateUserId, (req, res) => {
   })
 });
 
-router.get('/:id/posts', (req, res) => {
+router.get('/:id/posts', validateUserId, (req, res) => {
   users.getUserPosts(req.params.id)
   .then(posts => {
     res.json(posts)
@@ -56,7 +56,7 @@ router.get('/:id/posts', (req, res) => {
   })
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', validateUserId, (req, res) => {
   users.remove(req.params.id)
     .then(user => {
         res.status(200).json(user)
@@ -66,7 +66,7 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', validateUserId, (req, res) => {
   users.update(req.params.id, req.body)
   .then(user => {
       res.status(200).json(user)
@@ -80,7 +80,6 @@ router.put('/:id', (req, res) => {
 
 function validateUserId(req, res, next) {
   const { id } = req.params;
-
   users.getById(id)
   .then(user => {
 		if (!user) {
